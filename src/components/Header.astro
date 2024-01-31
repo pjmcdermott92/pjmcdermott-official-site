@@ -1,0 +1,79 @@
+---
+import { Image } from 'astro:assets';
+import logo from '../images/my-logo.png';
+
+const NAV_LINKS = [
+    { title: 'Home', href: '/' },
+    { title: 'About', href: '/about' },
+    { title: 'Projects', href: '/portfolio' },
+    { title: 'Blog', href: '/blog' },
+    { title: 'Contact', href: '/contact' },
+];
+---
+
+<header class='px-4'>
+    <nav
+        class='w-full max-w-screen-lg mx-auto py-4 px-2 flex items-center justify-between'
+    >
+        <a
+            href='/'
+            class='flex items-center space-x-3 rtl:space-x-reverse border-0'
+            title='Patrick McDermott - Web Developer'
+        >
+            <Image src={logo} alt='Patrick McDermott' height={48} />
+        </a>
+        <button
+            type='button'
+            class='inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200'
+            aria-expanded='false'
+            data-toggle-btn
+        >
+            <span class='sr-only'>Open main menu</span>
+            <svg
+                class='w-5 h-5'
+                aria-hidden='true'
+                xmlns='http://www.w3.org/2000/svg'
+                fill='none'
+                viewBox='0 0 17 14'
+            >
+                <path
+                    stroke='currentColor'
+                    stroke-linecap='round'
+                    stroke-linejoin='round'
+                    stroke-width='2'
+                    d='M1 1h15M1 7h15M1 13h15'></path>
+            </svg>
+        </button>
+        <div
+            class='absolute md:relative top-16 md:top-0 right-0 bg-background-dark w-full hidden md:block md:w-auto shadow-md shadow-slate-700 md:shadow-none'
+            data-menu
+        >
+            <ul
+                class='flex flex-col p-4 md:p-0 border border-gray-100 text-white font-light lowercase text-xl rounded-lg md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0'
+            >
+                {
+                    NAV_LINKS.map(({ title, href }) => (
+                        <li>
+                            <a
+                                href={href}
+                                class='block py-2 px-3 border-0 text-white md:p-0 hover:text-brand no-underline'
+                                title={title}
+                            >
+                                {title}
+                            </a>
+                        </li>
+                    ))
+                }
+            </ul>
+        </div>
+    </nav>
+</header>
+
+<script is:inline>
+    const toggleBtn = document.querySelector('[data-toggle-btn]');
+    const navMenu = document.querySelector('[data-menu]');
+
+    toggleBtn.addEventListener('click', () => {
+        navMenu.classList.toggle('hidden');
+    });
+</script>
