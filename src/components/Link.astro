@@ -1,0 +1,27 @@
+---
+export interface Props {
+    href: string;
+    classList?: string;
+    isExternal?: boolean;
+    id?: any;
+}
+
+const { href, classList, isExternal = false, id } = Astro.props;
+const classes = `group text-brand underline hover:no-underline transition-all duration-300 ease-in-out realtive ${classList || ''}`;
+---
+
+{
+    isExternal && (
+        <a class={classes} id={id || ''} href={href} rel='noreferrer nofollow' target='_blank'>
+            <slot />
+        </a>
+    )
+}
+
+{
+    !isExternal && (
+        <a class={classes} id={id || ''} href={href}>
+            <slot />
+        </a>
+    )
+}

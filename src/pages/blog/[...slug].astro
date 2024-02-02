@@ -1,0 +1,64 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Tags from '../../components/Tags.astro';
+import { Image } from 'astro:assets';
+import { getEntry } from 'astro:content';
+import { formatDate, capitalize, slugify } from '../../utils';
+
+const { slug } = Astro.params;
+
+if (slug === undefined) {
+    throw new Error('Slug is required');
+}
+
+const entry = await getEntry('blog', slug);
+
+if (entry === undefined) {
+    return Astro.redirect('/404');
+}
+
+const { Content } = await entry.render();
+---
+
+<BaseLayout>
+    <h1 class='text-5xl font-bold leading-tight pb-1'>{entry?.data.title}</h1>
+    <p class='text-sm text-gray-300 pb-4'>Published <strong>{formatDate(entry?.data.date)}</strong> by <strong>{entry?.data.author}</strong></p>
+    <Tags tags={entry.data.tags} />
+    <Image src={`/uploads/${entry?.data.image}`} alt={entry?.data.title} width={1024} height={1280} class='my-4 rounded-md' />
+    <!-- <img src={`/uploads/${entry?.data.image}`} alt={entry?.data.title} class='my-4 rounded-md' /> -->
+    <article class='pb-5 prose'>
+        <Content />
+    </article>
+</BaseLayout>
+
+<style is:inline>
+    article > h3 {
+        margin: 1rem 0;
+        font-weight: bold;
+        font-size: 1.25rem;
+    }
+
+    article > p {
+        margin: 1rem 0;
+    }
+
+    article > ul {
+        padding-left: 2rem;
+        list-style: circle;
+    }
+
+    article a {
+        color: #7496ce;
+        text-decoration: underline;
+    }
+
+    article a:hover {
+        text-decoration: none;
+        transition: 250ms ease-in-out;
+    }
+
+    .astro-code {
+        padding: 1rem;
+        border-radius: 5px;
+    }
+</style>

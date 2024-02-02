@@ -1,0 +1,41 @@
+---
+import { Image } from 'astro:assets';
+import { formatDate } from '../utils';
+import Tags from './Tags.astro';
+import Button, { ButtonSizes, ButtonVariant } from './Button.astro';
+
+export type Props = {
+    alternate?: boolean;
+    post: {
+        [x: string]: any;
+        slug: string;
+        data: {
+            title: string;
+            excerpt: string;
+            date: Date;
+            image?: string;
+            tags: string[];
+        };
+    };
+};
+
+const { alternate, post } = Astro.props;
+const link = `/blog/${post.slug}`;
+---
+
+<article class='overflow-hidden'>
+    <div class='grid grid-cols-1 md:grid-cols-2 w-full object-cover mb-4 gap-4 md:gap-12 items-center'>
+        <div class={`${alternate ? 'md:order-2' : ''} overflow-hidden`}>
+            <a href={`/blog/${post.slug}`}>
+                <Image src={`/uploads/${post.data.image}`} alt={post.data.title} width={540} height={960} class='rounded-md' />
+            </a>
+        </div>
+        <div>
+            <h3 class='text-2xl font-bold'><a href={`/blog/${post.slug}`} class='hover:underline'>{post.data.title}</a></h3>
+            <p class='opacity-75 text-base'>{formatDate(post.data.date)}</p>
+            <Tags tags={post.data.tags} />
+            <p class='my-2'>{post.data.excerpt}</p>
+            <Button variant={ButtonVariant.SECONDARY} size={ButtonSizes.XSMALL} isLink href={link}>Read</Button>
+        </div>
+    </div>
+</article>

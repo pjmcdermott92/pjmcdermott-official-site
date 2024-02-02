@@ -1,77 +1,48 @@
 ---
 import { Image } from 'astro:assets';
-import RootLayout from '../layouts/RootLayout.astro';
-import heroImage from '../images/me-home-hero.png';
+import BaseLayout from '../layouts/BaseLayout.astro';
 import picOfMe from '../images/me-glowing.png';
+import Link from '../components/Link.astro';
+import HeroSection from '../components/HeroSection.astro';
 ---
 
-<RootLayout title='About Me'>
-    <main class='container w-full max-w-screen-lg mx-auto my-8 px-4 md:px-6'>
-        <section
-            class='flex flex-col md:flex-row items-center gap-8 my-24 lg:p-8 text-center md:text-left'
-        >
-            <div class='flex-1 flex flex-col justify-center'>
-                <h2 class='text-2xl text-brand font-medium'>About Patrick</h2>
-                <h1 class='text-6xl font-bold leading-tight'>
-                    Full-stack developer and writer
-                </h1>
-            </div>
-            <Image
-                src={heroImage}
-                alt='Patrick at the computer'
-                class='md:w-1/3'
-                loading='eager'
-            />
-        </section>
-        <section class='flex items-start gap-12 mb-8'>
-            <div class='flex-1'>
-                <p class='mb-8 leading-loose'>
-                    Hi, I'm Patrick McDermott. I'm a full-stack web developer,
-                    specializing in mostly JavaScript technologies, but I also
-                    work in PHP, C#, and a few other languages. My passion for
-                    programming began at an early age when I built my first web
-                    page in Microsoft Word. Over 15 years later, my passion for
-                    development has only grown! I build web applications and
-                    solutions for a wide range of purposes, including small
-                    businesses, startups, and a public school district. Check
-                    out my <a href='/portfolio'>portfolio</a> to see some of the
-                    projects I have worked on!
-                </p>
-                <p class='mb-8 leading-loose'>
-                    Though I have always had a passion for code, I took a
-                    different career path early on in life. I pursued my other
-                    passion of cooking and spent 10 years working in various
-                    capacities for various restaurants, from cafeterias to
-                    fine-dining restaurants. I have even assisted with opening a
-                    couple of restaurant concepts. Working my way from the dish
-                    pit to Sous Chef, I learned many valuable skills and gained
-                    a lot of experience in teamwork, people and time management,
-                    and communication. I also learned valuable skills in
-                    designing effective processes and procedures, and I
-                    fine-tuned my attention to detail.
-                </p>
-                <p class='mb-8 leading-loose'>
-                    Moving from the kitchen into a technology role was a natural
-                    transition for me, as a lot of the soft skills of running a
-                    kitchen and the creativity and eye for detail of designing
-                    dishes and building recipes transferred over into building
-                    creative, effective, and functional websites and web
-                    applications. The problem-solving and analytical skills that
-                    I learned as a chef have allowed me to face nearly any
-                    programming challenge methodically and come up with an
-                    effective and performant solution for the problem.
-                </p>
-                <p class='mb-8 leading-loose'>
-                    Aside from programming, I also enjoy writing and sharing my
-                    knowledge with others. Check out my <a href='/blog'>blog</a>
-                    to read some of my latest posts on technology, programming, and
-                    life as a whole. On this blog, I try to share stories about my
-                    struggles and successes as a programmer, and some tips, tricks,
-                    and tools that I have learned or came across throughout my development
-                    journey.
-                </p>
-            </div>
-            <Image src={picOfMe} alt='Me' class='hidden md:block mt-12' />
-        </section>
-    </main>
-</RootLayout>
+<BaseLayout title='About Me' description="'Patrick McDermott is a wbe developer and blogger.">
+    <HeroSection hasImage title='About Patrick' tagline='Full-stack Web Developer' />
+    <section class='flex items-start gap-12 mb-8'>
+        <div class='flex-1'>
+            <p class='mb-8 leading-loose'>
+                Hi, I'm Patrick McDermott. I'm a full-stack web developer, specializing in mostly JavaScript technologies, but I also work
+                in PHP, C#, and a few other languages. My passion for programming began at an early age when I built my first web page in
+                Microsoft Word. Over 15 years later, my passion for development has only grown! I build web applications and solutions for a
+                wide range of purposes, including small businesses, startups, and a public school district. Check out my <Link
+                    href='/portfolio'>
+                    portfolio
+                </Link> to see some of the projects I have worked on!
+            </p>
+            <p class='mb-8 leading-loose'>
+                Though I have always had a passion for code, I took a different career path early on in life. I pursued my other passion of
+                cooking and spent 10 years working in various capacities for various restaurants, from cafeterias to fine-dining
+                restaurants. I have even assisted with opening a couple of restaurant concepts. Working my way from the dish pit to Sous
+                Chef, I learned many valuable skills and gained a lot of experience in teamwork, people and time management, and
+                communication. I also learned valuable skills in designing effective processes and procedures, and I fine-tuned my attention
+                to detail.
+            </p>
+            <p class='mb-8 leading-loose'>
+                Moving from the kitchen into a technology role was a natural transition for me, as a lot of the soft skills of running a
+                kitchen and the creativity and eye for detail of designing dishes and building recipes transferred over into building
+                creative, effective, and functional websites and web applications. The problem-solving and analytical skills that I learned
+                as a chef have allowed me to face nearly any programming challenge methodically and come up with an effective and performant
+                solution for the problem.
+            </p>
+            <p class='mb-8 leading-loose'>
+                Aside from programming, I also enjoy writing and sharing my knowledge with others. Check out my <Link href='/blog'>
+                    blog
+                </Link>
+                to read some of my latest posts on technology, programming, and life as a whole. On this blog, I try to share stories about my
+                struggles and successes as a programmer, and some tips, tricks, and tools that I have learned or came across throughout my development
+                journey.
+            </p>
+        </div>
+        <Image src={picOfMe} alt='Me' class='hidden md:block mt-12' />
+    </section>
+</BaseLayout>

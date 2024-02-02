@@ -1,0 +1,11 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import Link from '../components/Link.astro';
+---
+
+<BaseLayout title="'Page not found">
+    <PageHeader heading='404' body='The page you are looking for was not found.'>
+        <Link href="/" classList='text-center my-8'>Back to Home</PageHeader>
+    </PageHeader>
+</BaseLayout>

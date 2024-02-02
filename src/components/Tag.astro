@@ -1,0 +1,17 @@
+---
+import { capitalize, slugify } from '../utils';
+
+export interface Props {
+    tag: string;
+    isLarge?: boolean;
+}
+
+const { tag, isLarge = false } = Astro.props;
+
+const baseClasses = 'rounded-full border hover:opacity-70';
+const classes = `${isLarge ? 'px-3 py-1 text-base' : 'px-2 py-1 text-xs'} ${baseClasses}`;
+---
+
+<a href={`/blog/tag/${slugify(tag)}`} class={classes}>
+    {capitalize(tag)}
+</a>

@@ -1,0 +1,27 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ArticleCard from '../../components/ArticleCard.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import SearchBar from '../../components/SearchBar.astro';
+import { getCollection, type CollectionEntry } from 'astro:content';
+import Tags from '../../components/Tags.astro';
+import { getSortedBlogPosts } from '../../utils/collectionData';
+
+const allPosts: CollectionEntry<'blog'>[] = await getSortedBlogPosts();
+
+const allTags: string[] = [];
+allPosts.forEach((post) => {
+    const tags = post.data.tags;
+    tags.forEach((tag: string) => allTags.push(tag));
+});
+---
+
+<BaseLayout>
+    <PageHeader heading='Blog' body='Articles about Web Development' />
+    <SearchBar placeholder='Search Posts...' action='/' />
+    <br />
+    <Tags isLarge tags={allTags} />
+    <div class='mt-8 mb-4 flex flex-col gap-12 lg:gap-18'>
+        {allPosts.map((post, idx) => <ArticleCard alternate={idx % 2 != 0} post={post} />)}
+    </div>
+</BaseLayout>

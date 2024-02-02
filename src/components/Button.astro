@@ -1,0 +1,66 @@
+---
+export interface Props {
+    handler?: any;
+    isLink?: boolean;
+    href?: string;
+    newTab?: boolean;
+    classList?: string;
+    id?: string;
+    type?: string;
+    variant?: string;
+    size?: string;
+}
+
+export enum ButtonVariant {
+    PRIMARY = 'primary',
+    SECONDARY = 'secondary',
+}
+
+export enum ButtonSizes {
+    XSMALL = 'xsmall',
+    SMALL = 'small',
+    MEDIUM = 'medium',
+    LARGE = 'large',
+}
+
+const { handler, isLink, href, newTab, classList, id, type, variant = 'primary', size = 'medium' } = Astro.props;
+
+const colorClasses = {
+    primary: 'bg-brand border-brand text-white border-brand hover:text-brand hover:bg-background-dark',
+    secondary: 'text-white bg-background-dark border-white hover:text-white hover:bg-brand hover:border-brand',
+};
+
+const sizeClasses = {
+    xsmall: 'text-sm px-4 py-1',
+    small: 'text-md px-6 py-1',
+    medium: 'text-lg px-8 py-2',
+    large: 'text-xl px-10 py-3',
+};
+
+const baseClasses = 'text-center rounded-md border inline-flex gap-x-4 justify-center transition';
+const classes = `${baseClasses} ${classList || ''} ${(colorClasses as any)[variant]} ${(sizeClasses as any)[size]}`;
+---
+
+{
+    !isLink && (
+        <button class={classes} onclick={handler} id={id || ''}>
+            <slot />
+        </button>
+    )
+}
+
+{
+    isLink && newTab && (
+        <a href={href} class={classes} rel='noopener noreferrer' target='_blank' id={id || ''}>
+            <slot />
+        </a>
+    )
+}
+
+{
+    isLink && !newTab && (
+        <a href={href} class={classes} id={id || ''}>
+            <slot />
+        </a>
+    )
+}
