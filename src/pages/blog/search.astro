@@ -1,0 +1,38 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import SearchBar from '../../components/SearchBar.astro';
+import ArticleCard from '../../components/ArticleCard.astro';
+import Link from '../../components/Link.astro';
+import { getSortedBlogPosts } from '../../utils/collectionData';
+
+const query: string | null = Astro.url.searchParams.get('query');
+if (!query || query == undefined) return Astro.redirect('/blog');
+
+const allPosts = await getSortedBlogPosts();
+
+// Filter posts
+const results = allPosts.filter((post) => {
+    const matchTitle: boolean = post.data.title.toLowerCase().includes(query!.toLowerCase());
+    const matchSlug: boolean = post.body.toLowerCase().includes(query!.toLowerCase());
+    const matchBody: boolean = post.body.toLowerCase().includes(query!.toLowerCase());
+
+    return matchTitle || matchSlug || matchBody;
+});
+---
+
+<BaseLayout title='Search Results'>
+    <PageHeader heading='Blog' body='Search Results' description={`Showing results for: ${query}`}>
+        <Link href='/blog'>Back to Blog</Link>
+    </PageHeader>
+    <SearchBar placeholder='Search posts...' value={query} action='/blog/search' />
+    <div class='mt-8 mb-4 flex flex-col gap-12 lg:gap-18'>
+        {
+            results?.length ? (
+                results.map((post, idx) => <ArticleCard alternate={idx % 2 != 0} post={post} />)
+            ) : (
+                <p class='text-center my-8'>No posts found</p>
+            )
+        }
+    </div>
+</BaseLayout>

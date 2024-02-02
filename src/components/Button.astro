@@ -9,6 +9,7 @@ export interface Props {
     type?: string;
     variant?: string;
     size?: string;
+    title?: string;
 }
 
 export enum ButtonVariant {
@@ -23,7 +24,7 @@ export enum ButtonSizes {
     LARGE = 'large',
 }
 
-const { handler, isLink, href, newTab, classList, id, type, variant = 'primary', size = 'medium' } = Astro.props;
+const { handler, isLink, href, newTab, classList, id, type, variant = 'primary', size = 'medium', title } = Astro.props;
 
 const colorClasses = {
     primary: 'bg-brand border-brand text-white border-brand hover:text-brand hover:bg-background-dark',
@@ -43,7 +44,7 @@ const classes = `${baseClasses} ${classList || ''} ${(colorClasses as any)[varia
 
 {
     !isLink && (
-        <button class={classes} onclick={handler} id={id || ''}>
+        <button class={classes} onclick={handler} id={id || ''} title={title}>
             <slot />
         </button>
     )
@@ -51,7 +52,7 @@ const classes = `${baseClasses} ${classList || ''} ${(colorClasses as any)[varia
 
 {
     isLink && newTab && (
-        <a href={href} class={classes} rel='noopener noreferrer' target='_blank' id={id || ''}>
+        <a href={href} class={classes} rel='noopener noreferrer' target='_blank' id={id || ''} title={title}>
             <slot />
         </a>
     )
@@ -59,7 +60,7 @@ const classes = `${baseClasses} ${classList || ''} ${(colorClasses as any)[varia
 
 {
     isLink && !newTab && (
-        <a href={href} class={classes} id={id || ''}>
+        <a href={href} class={classes} id={id || ''} title={title}>
             <slot />
         </a>
     )

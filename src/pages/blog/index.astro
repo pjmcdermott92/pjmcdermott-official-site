@@ -3,8 +3,8 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import ArticleCard from '../../components/ArticleCard.astro';
 import PageHeader from '../../components/PageHeader.astro';
 import SearchBar from '../../components/SearchBar.astro';
-import { getCollection, type CollectionEntry } from 'astro:content';
 import Tags from '../../components/Tags.astro';
+import { type CollectionEntry } from 'astro:content';
 import { getSortedBlogPosts } from '../../utils/collectionData';
 
 const allPosts: CollectionEntry<'blog'>[] = await getSortedBlogPosts();
@@ -16,9 +16,9 @@ allPosts.forEach((post) => {
 });
 ---
 
-<BaseLayout>
+<BaseLayout title='Blog' description='Articles about Web Development'>
     <PageHeader heading='Blog' body='Articles about Web Development' />
-    <SearchBar placeholder='Search Posts...' action='/' />
+    <SearchBar placeholder='Search Posts...' action='/blog/search' />
     <br />
     <Tags isLarge tags={allTags} />
     <div class='mt-8 mb-4 flex flex-col gap-12 lg:gap-18'>

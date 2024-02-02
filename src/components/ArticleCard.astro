@@ -35,7 +35,7 @@ const link = `/blog/${post.slug}`;
             <p class='opacity-75 text-base'>{formatDate(post.data.date)}</p>
             <Tags tags={post.data.tags} />
             <p class='my-2'>{post.data.excerpt}</p>
-            <Button variant={ButtonVariant.SECONDARY} size={ButtonSizes.XSMALL} isLink href={link}>Read</Button>
+            <Button variant={ButtonVariant.SECONDARY} size={ButtonSizes.XSMALL} isLink href={link} title='Read Post'>Read</Button>
         </div>
     </div>
 </article>

@@ -12,6 +12,6 @@ const baseClasses = 'rounded-full border hover:opacity-70';
 const classes = `${isLarge ? 'px-3 py-1 text-base' : 'px-2 py-1 text-xs'} ${baseClasses}`;
 ---
 
-<a href={`/blog/tag/${slugify(tag)}`} class={classes}>
+<a href={`/blog/tag/${slugify(tag)}`} class={classes} title={`Show post with the tag '${capitalize(tag)}'`}>
     {capitalize(tag)}
 </a>

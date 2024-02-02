@@ -2,12 +2,13 @@
 export interface Props {
     label?: string;
     placeholder: string;
+    value?: string;
     action: string;
     id?: string;
     filedName?: string;
 }
 
-const { id, placeholder, label = 'Search', action, filedName = 'query' } = Astro.props;
+const { id, placeholder, value, label = 'Search', action, filedName = 'query' } = Astro.props;
 ---
 
 <form id={id || ''} class='flex items-center' action={action}>
@@ -19,6 +20,7 @@ const { id, placeholder, label = 'Search', action, filedName = 'query' } = Astro
             name={filedName}
             class='bg-gray-50/20 border border-gray-500 text-gray-200 text-md rounded-md focus:ring-brand focus:border-brand block w-full px-2 py-0.5'
             placeholder={placeholder}
+            value={value}
             required
         />
         <button
